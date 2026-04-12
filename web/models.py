@@ -21,3 +21,11 @@ class Education(models.Model):
     admission_year = models.IntegerField(verbose_name='Год поступления')
     graduation_year = models.IntegerField(verbose_name='Год окончания')
     description = models.TextField(max_length=2000, verbose_name='Описание')
+
+
+class Experience(models.Model):
+    company = models.CharField(max_length=255, verbose_name='Компания')
+    position = models.CharField(max_length=255, verbose_name='Долдность')
+    start_year = models.IntegerField(verbose_name='Год начала')
+    end_year = models.IntegerField(verbose_name='Год окончания')
+    description = models.TextField(max_length=2000, verbose_name='Описание')
