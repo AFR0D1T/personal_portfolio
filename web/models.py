@@ -11,11 +11,13 @@ class Profile(models.Model):
 class SocialLinks(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название')
     link = models.URLField(max_length=500, unique=True)
-    profile = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
                                 verbose_name='Профиль', related_name='links')
 
 
 class Education(models.Model):
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+                                 verbose_name='Профиль', related_name='links')
     name = models.CharField(max_length=255, verbose_name='Название')
     speciality = models.CharField(max_length=100, verbose_name='Специальность')
     admission_year = models.IntegerField(verbose_name='Год поступления')
@@ -24,6 +26,8 @@ class Education(models.Model):
 
 
 class Experience(models.Model):
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+                                 verbose_name='Профиль', related_name='links')
     company = models.CharField(max_length=255, verbose_name='Компания')
     position = models.CharField(max_length=255, verbose_name='Долдность')
     start_year = models.IntegerField(verbose_name='Год начала')
@@ -39,3 +43,16 @@ class Skills(models.Model):
 
     name = models.CharField(max_length=255, verbose_name='Название')
     level = models.IntegerField(choices=LevelSize.choices, verbose_name='Уровень')
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+                                 verbose_name='Профиль', related_name='links')
+
+
+class Technologies(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Название')
+    profiles = models.ManyToManyField('web.Profile', related_name='technologies', verbose_name='Профили',
+                                      through='web.TechnologiesProfiles')
+
+
+class TechnologiesProfiles(models.Model):
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE)
+    technologies = models.ForeignKey('web.Technologies',  on_delete=models.CASCADE)
