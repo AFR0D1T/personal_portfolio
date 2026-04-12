@@ -8,3 +8,10 @@ class Profile(models.Model):
     about = models.TextField(max_length=2000, verbose_name='Краткое описание')
 
 
+class SocialLinks(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Название')
+    link = models.URLField(max_length=500, unique=True)
+    profile = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+                                verbose_name='Профиль', related_name='links')
+
+
