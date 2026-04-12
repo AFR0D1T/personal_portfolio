@@ -29,3 +29,13 @@ class Experience(models.Model):
     start_year = models.IntegerField(verbose_name='Год начала')
     end_year = models.IntegerField(verbose_name='Год окончания')
     description = models.TextField(max_length=2000, verbose_name='Описание')
+
+
+class Skills(models.Model):
+    class LevelSize(models.IntegerChoices):
+        JUNIOR = 1, 'Junior'
+        MIDDLE = 2, 'Middle'
+        SENIOR = 3, 'Senior'
+
+    name = models.CharField(max_length=255, verbose_name='Название')
+    level = models.IntegerField(choices=LevelSize.choices, verbose_name='Уровень')
