@@ -15,3 +15,9 @@ class SocialLinks(models.Model):
                                 verbose_name='Профиль', related_name='links')
 
 
+class Education(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Название')
+    speciality = models.CharField(max_length=100, verbose_name='Специальность')
+    admission_year = models.IntegerField(verbose_name='Год поступления')
+    graduation_year = models.IntegerField(verbose_name='Год окончания')
+    description = models.TextField(max_length=2000, verbose_name='Описание')
