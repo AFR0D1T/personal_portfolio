@@ -17,7 +17,7 @@ class SocialLinks(models.Model):
 
 class Education(models.Model):
     profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
-                                 verbose_name='Профиль', related_name='links')
+                                 verbose_name='Профиль', related_name='educations')
     name = models.CharField(max_length=255, verbose_name='Название')
     speciality = models.CharField(max_length=100, verbose_name='Специальность')
     admission_year = models.IntegerField(verbose_name='Год поступления')
@@ -27,7 +27,7 @@ class Education(models.Model):
 
 class Experience(models.Model):
     profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
-                                 verbose_name='Профиль', related_name='links')
+                                 verbose_name='Профиль', related_name='experiences')
     company = models.CharField(max_length=255, verbose_name='Компания')
     position = models.CharField(max_length=255, verbose_name='Долдность')
     start_year = models.IntegerField(verbose_name='Год начала')
@@ -41,10 +41,11 @@ class Skills(models.Model):
         MIDDLE = 2, 'Middle'
         SENIOR = 3, 'Senior'
 
+
     name = models.CharField(max_length=255, verbose_name='Название')
     level = models.IntegerField(choices=LevelSize.choices, verbose_name='Уровень')
     profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
-                                 verbose_name='Профиль', related_name='links')
+                                 verbose_name='Профиль', related_name='skills')
 
 
 class Technologies(models.Model):
