@@ -1,15 +1,140 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="card mb-3">
-        <div class="img">
-            <img src="https://img.hhcdn.ru/photo/765617020.jpeg?t=1776175230&h=Rdzqc0vKsF7DsCl9CXqAUg"
-                 class="card-img-top" alt="avatar">
+<main class="portfolio-page">
+    <section class="hero-card portfolio-card">
+        <div class="hero-avatar-wrap">
+            <button class="avatar-button" type="button" id="openAvatarModal" aria-label="Открыть аватар">
+                <img src="{{ profile.avatar }}" class="hero-avatar" alt="avatar">
+            </button>
         </div>
-        <div class="card-body">
-            <h2 class="card-title">{{ profile.last_name }}</h2>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <div class="hero-content">
+            <p class="hero-kicker">Portfolio</p>
+            <h1 class="hero-title">{{ profile.last_name }} {{ profile.first_name }}</h1>
+            <p class="hero-subtitle">{{ profile.profession }}</p>
+            <a href="#" class="hero-btn">Смотреть портфолио</a>
+        </div>
+    </section>
+
+    <section class="grid-layout">
+        <aside class="left-column">
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Контакты</h2>
+                <ul class="info-list">
+                    <li>{{ contact.phone|default:"+7 000 000 00 00" }}</li>
+                    <li>{{ contact.email|default:"example@email.com" }}</li>
+                    <li>{{ contact.address|default:"Алматы, Казахстан" }}</li>
+                    {% for link in links %}
+                        <a href="{{ link.link }}">{{ link.name }}</a>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Навыки</h2>
+                <div class="tags">
+                    {% for skil in skills %}
+                        <span>{{ skil.name }}</span>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Языки</h2>
+                <div class="tags">
+                    <span>RU</span>
+                    <span>ENG</span>
+                </div>
+            </article>
+        </aside>
+
+        <div class="right-column">
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Обо мне</h2>
+                <p class="panel-text">
+                    {{ profile.about }}
+                </p>
+            </article>
+
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Дополнительная информация</h2>
+                <ul class="feature-list">
+                    <li>Быстро адаптируюсь к новым задачам и технологиям.</li>
+                    <li>Работаю с дедлайнами и соблюдаю стандарты качества.</li>
+                    <li>Фокусируюсь на чистой верстке и удобстве для пользователя.</li>
+                    <li>Готов к командной работе и развитию продукта.</li>
+                </ul>
+            </article>
+
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Образование</h2>
+                {% for education in educations %}
+                    <div class="timeline-item">
+                        <p class="timeline-role">{{ education.admission_year }} - {{ education.graduation_year }}</p>
+                        <p class="timeline-role">{{ education.name }}</p>
+                        <p class="timeline-meta">{{ education.speciality }}</p>
+                        <p class="panel-text">
+                            {{ education.description }}
+                        </p>
+                    </div>
+                {% endfor %}
+            </article>
+
+            <article class="portfolio-card panel">
+                <h2 class="panel-title">Опыт</h2>
+                <div class="timeline-item">
+                    <p class="timeline-role">Front-end Developer</p>
+                    <p class="timeline-meta">Freelance | 2024 - 2026</p>
+                    <p class="panel-text">
+                        Разрабатывал адаптивные страницы, улучшал визуальную часть сайтов,
+                        работал с клиентскими правками и быстрыми итерациями дизайна.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="avatar-modal" id="avatarModal" aria-hidden="true">
+        <div class="avatar-modal-overlay" id="closeAvatarByOverlay"></div>
+        <div class="avatar-modal-content" role="dialog" aria-modal="true" aria-label="Увеличенный аватар">
+            <button class="avatar-modal-close" type="button" id="closeAvatarModal" aria-label="Закрыть">x</button>
+            <img src="{{ profile.avatar }}" class="avatar-modal-image" alt="avatar full">
         </div>
     </div>
+</main>
+
+<script>
+    (function () {
+        const openBtn = document.getElementById("openAvatarModal");
+        const closeBtn = document.getElementById("closeAvatarModal");
+        const closeOverlay = document.getElementById("closeAvatarByOverlay");
+        const modal = document.getElementById("avatarModal");
+
+        if (!openBtn || !closeBtn || !closeOverlay || !modal) {
+            return;
+        }
+
+        function openModal() {
+            modal.classList.add("is-open");
+            modal.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeModal() {
+            modal.classList.remove("is-open");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        }
+
+        openBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+        closeOverlay.addEventListener("click", closeModal);
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && modal.classList.contains("is-open")) {
+                closeModal();
+            }
+        });
+    })();
+</script>
 {% endblock %}

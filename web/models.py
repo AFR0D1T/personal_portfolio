@@ -9,6 +9,14 @@ class Profile(models.Model):
     avatar = models.URLField(max_length=255, blank=True, verbose_name='Аватар')
 
 
+class Contacts(models.Model):
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+                                 verbose_name='Профиль', related_name='contacts')
+    phone = models.CharField(max_length=100, verbose_name='Телефон')
+    email = models.CharField(max_length=100, verbose_name='Почта')
+    address = models.CharField(max_length=255, verbose_name='Аддрес')
+
+
 class SocialLinks(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название')
     link = models.URLField(max_length=500, unique=True)
@@ -24,6 +32,12 @@ class Education(models.Model):
     admission_year = models.IntegerField(verbose_name='Год поступления')
     graduation_year = models.IntegerField(verbose_name='Год окончания')
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Описание')
+
+
+class Information(models.Model):
+    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
+                                 verbose_name='Профиль', related_name='info')
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
 
 
 class Experience(models.Model):
@@ -48,13 +62,3 @@ class Skills(models.Model):
     profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE,
                                  verbose_name='Профиль', related_name='skills')
 
-
-class Technologies(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название')
-    profiles = models.ManyToManyField('web.Profile', related_name='technologies', verbose_name='Профили',
-                                      through='web.TechnologiesProfiles')
-
-
-class TechnologiesProfiles(models.Model):
-    profiles = models.ForeignKey('web.Profile', on_delete=models.CASCADE)
-    technologies = models.ForeignKey('web.Technologies',  on_delete=models.CASCADE)
