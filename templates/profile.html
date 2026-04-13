@@ -24,10 +24,19 @@
                     <li>{{ contact.phone|default:"+7 000 000 00 00" }}</li>
                     <li>{{ contact.email|default:"example@email.com" }}</li>
                     <li>{{ contact.address|default:"Алматы, Казахстан" }}</li>
-                    {% for link in links %}
-                        <a href="{{ link.link }}">{{ link.name }}</a>
-                    {% endfor %}
                 </ul>
+                <div class="contact-links">
+                    {% for link in links %}
+                        <a href="{{ link.link }}" class="contact-link" target="_blank" rel="noopener noreferrer">
+                            {{ link.name }}
+                        </a>
+                    {% endfor %}
+                    {% if not links %}
+                        <a href="#" class="contact-link">Behance</a>
+                        <a href="#" class="contact-link">LinkedIn</a>
+                        <a href="#" class="contact-link">GitHub</a>
+                    {% endif %}
+                </div>
             </article>
 
             <article class="portfolio-card panel">
@@ -43,7 +52,6 @@
                 <h2 class="panel-title">Языки</h2>
                 <div class="tags">
                     <span>RU</span>
-                    <span>ENG</span>
                 </div>
             </article>
         </aside>
@@ -59,19 +67,20 @@
             <article class="portfolio-card panel">
                 <h2 class="panel-title">Дополнительная информация</h2>
                 <ul class="feature-list">
-                    <li>Быстро адаптируюсь к новым задачам и технологиям.</li>
-                    <li>Работаю с дедлайнами и соблюдаю стандарты качества.</li>
-                    <li>Фокусируюсь на чистой верстке и удобстве для пользователя.</li>
-                    <li>Готов к командной работе и развитию продукта.</li>
+                    {% for info in information %}
+                    <li>{{ info.title }}</li>
+                    {% endfor %}
                 </ul>
             </article>
 
             <article class="portfolio-card panel">
                 <h2 class="panel-title">Образование</h2>
                 {% for education in educations %}
-                    <div class="timeline-item">
-                        <p class="timeline-role">{{ education.admission_year }} - {{ education.graduation_year }}</p>
-                        <p class="timeline-role">{{ education.name }}</p>
+                    <div class="education-item">
+                        <div class="education-header">
+                            <p class="timeline-role">{{ education.name }}</p>
+                            <span class="education-years">{{ education.admission_year }} - {{ education.graduation_year }}</span>
+                        </div>
                         <p class="timeline-meta">{{ education.speciality }}</p>
                         <p class="panel-text">
                             {{ education.description }}
@@ -82,14 +91,16 @@
 
             <article class="portfolio-card panel">
                 <h2 class="panel-title">Опыт</h2>
-                <div class="timeline-item">
-                    <p class="timeline-role">Front-end Developer</p>
-                    <p class="timeline-meta">Freelance | 2024 - 2026</p>
-                    <p class="panel-text">
-                        Разрабатывал адаптивные страницы, улучшал визуальную часть сайтов,
-                        работал с клиентскими правками и быстрыми итерациями дизайна.
-                    </p>
-                </div>
+                {% for experience in experiences %}
+                    <div class="timeline-item">
+                        <p class="timeline-role">{{ experience.company }}</p>
+                        <p class="timeline-meta">{{ experience.position }} |
+                            {{ experience.start_year }} - {{ experience.end_year }}</p>
+                        <p class="panel-text">
+                            {{ experience.description }}
+                        </p>
+                    </div>
+                {% endfor %}
             </article>
 
         </div>

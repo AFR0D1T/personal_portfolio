@@ -164,6 +164,34 @@ body {
     color: var(--text-muted);
 }
 
+.contact-links {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(103, 232, 249, 0.35);
+    background: rgba(56, 189, 248, 0.1);
+    color: #d8f7ff;
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.contact-link:hover {
+    transform: translateY(-1px);
+    background: rgba(56, 189, 248, 0.2);
+    box-shadow: 0 8px 18px rgba(56, 189, 248, 0.22);
+}
+
 .feature-list li {
     position: relative;
     padding-left: 18px;
@@ -209,6 +237,34 @@ body {
     margin: 3px 0 10px;
     color: var(--text-muted);
     font-weight: 700;
+}
+
+.education-item {
+    padding: 14px;
+    border: 1px solid rgba(103, 232, 249, 0.2);
+    background: rgba(12, 21, 46, 0.55);
+    border-radius: 12px;
+}
+
+.education-item + .education-item {
+    margin-top: 12px;
+}
+
+.education-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.education-years {
+    flex-shrink: 0;
+    padding: 5px 9px;
+    border-radius: 999px;
+    color: #0a1a31;
+    background: linear-gradient(120deg, var(--accent), var(--accent-soft));
+    font-size: 0.78rem;
+    font-weight: 900;
 }
 
 .avatar-modal {
