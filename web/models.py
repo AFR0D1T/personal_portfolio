@@ -6,6 +6,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     profession = models.CharField(max_length=50, verbose_name='Профессия')
     about = models.TextField(max_length=2000, verbose_name='Краткое описание')
+    avatar = models.URLField(max_length=255, blank=True, verbose_name='Аватар')
 
 
 class SocialLinks(models.Model):
@@ -22,7 +23,7 @@ class Education(models.Model):
     speciality = models.CharField(max_length=100, verbose_name='Специальность')
     admission_year = models.IntegerField(verbose_name='Год поступления')
     graduation_year = models.IntegerField(verbose_name='Год окончания')
-    description = models.TextField(max_length=2000, verbose_name='Описание')
+    description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Описание')
 
 
 class Experience(models.Model):
@@ -32,7 +33,7 @@ class Experience(models.Model):
     position = models.CharField(max_length=255, verbose_name='Долдность')
     start_year = models.IntegerField(verbose_name='Год начала')
     end_year = models.IntegerField(verbose_name='Год окончания')
-    description = models.TextField(max_length=2000, verbose_name='Описание')
+    description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Описание')
 
 
 class Skills(models.Model):

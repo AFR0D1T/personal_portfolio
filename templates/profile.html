@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mb-3">
+        <div class="img">
+            <img src="https://img.hhcdn.ru/photo/765617020.jpeg?t=1776175230&h=Rdzqc0vKsF7DsCl9CXqAUg"
+                 class="card-img-top" alt="avatar">
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">{{ profile.last_name }}</h2>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+{% endblock %}
